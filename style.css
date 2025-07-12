@@ -1,0 +1,288 @@
+    * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    }
+
+    body {
+    background-color: aquamarine;
+    }
+
+    .hide {
+    display: none;
+    }
+
+    .select-box, .play-board, .result-box {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    transition: all 0.3s ease;
+    }
+
+    .select-box {
+    background-color: aliceblue;
+    padding: 40px 45px 45px;
+    border-radius: 10px;
+    max-width: 450px;
+    width: 100%;
+    }
+
+    .select-box header {
+    font-size: 30px;
+    font-weight: 500;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #0c0606;
+    }
+
+    .select-box .title {
+    font-size: 20px;
+    margin: 20px 0;
+    }
+
+    .play-ai i, .play-player i {
+    font-size: 32px;
+    margin-bottom: 15px;
+    }
+
+    /* Game mode and symbol buttons */
+    .play-ai, .play-player, .playerX, .playerO {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    flex: 1;
+    font-size: 20px;
+    font-weight: 500;
+    border: none;
+    outline: none;
+    background-color: #2cb2b2;
+    border-radius: 7px;
+    color: white;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    padding: 25px 20px;
+    margin: 5px;
+    gap: 2px;
+    text-align: center;
+    }
+
+    .fa, .fas{
+        font-size: 32px;
+    }
+
+    .options {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 15px;
+    }
+
+    .play-ai.active-mode, .play-player.active-mode {
+    background-color: #137a7a;
+    font-weight: bold;
+    }
+
+    .play-ai:hover,
+    .play-player:hover,
+    .playerX:hover,
+    .playerO:hover,
+    .result-box .btn button:hover {
+    transform: scale(0.96);
+    }
+
+    /* Player option layout */
+    .select-box .player-select-options,
+    .select-box .options {
+    display: flex;
+    width: 100%;
+    gap: 10px;
+    }
+
+    /* Game board */
+    .play-board {
+    opacity: 0;
+    pointer-events: none;
+    transform: translate(-50%, -50%) scale(0.9);
+    }
+
+    .play-board.show {
+    opacity: 1;
+    pointer-events: auto;
+    animation: fadeInScale 0.5s ease forwards;
+    }
+
+    @keyframes fadeInScale {
+    from {
+        opacity: 0;
+        transform: translate(-50%, -50%) scale(0.8);
+    }
+    to {
+        opacity: 1;
+        transform: translate(-50%, -50%) scale(1);
+    }
+    }
+
+    .play-board .details {
+    background-color: azure;
+    padding: 10px;
+    border-radius: 5px;
+    }
+
+    /* Turn indicator layout */
+    .play-board .details .players {
+    display: flex;
+    position: relative;
+    justify-content: space-between;
+    width: 100%;
+    border-radius: 5px;
+    overflow: hidden;
+    }
+
+    .play-board .details span {
+    flex: 1;
+    text-align: center;
+    padding: 7px 0;
+    font-size: 20px;
+    font-weight: 500;
+    color: aquamarine;
+    background: transparent;
+    z-index: 2;
+    transition: all 0.3s ease;
+    }
+
+    /* Slider under active turn */
+    .details .slider {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 50%;
+    background-color: white;
+    border-radius: 5px;
+    z-index: 1;
+    transition: left 0.4s ease;
+    box-shadow: 0 0 6px rgba(0, 0, 0, 0.1);
+    }
+
+    /* Move slider to O when active */
+    .players.active .slider {
+    left: 50%;
+    }
+
+    /* Active X (default) */
+    .players:not(.active) .Xturn {
+    color: white;
+    background-color: aquamarine;
+    font-weight: 700;
+    }
+
+    /* Active O */
+    .players.active .Oturn {
+    color: white;
+    background-color: aquamarine;
+    font-weight: 700;
+    }
+
+    /* Inactive labels */
+    .players.active .Xturn,
+    .players:not(.active) .Oturn {
+    color: white;
+    font-weight: 400;
+    }
+
+    /* Play Area Grid */
+    .play-board .play-area {
+    margin-top: 20px;
+    }
+
+    .play-board section {
+    display: flex;
+    }
+
+    .play-board section span {
+    display: block;
+    margin: 2px;
+    height: 80px;
+    width: 80px;
+    background-color: azure;
+    border-radius: 5px;
+    font-size: 40px;
+    text-align: center;
+    line-height: 80px;
+    color: aquamarine;
+    transition: all 0.25s ease;
+    cursor: pointer;
+    }
+
+    .play-board section span:hover:empty {
+    background-color: #d4f4f4;
+    transform: scale(1.05);
+    }
+
+    /* Result Box */
+    .result-box {
+    background-color: aliceblue;
+    padding: 20px;
+    border-radius: 5px;
+    max-width: 250px;
+    width: 100%;
+    opacity: 0;
+    pointer-events: none;
+    transform: translate(-50%, -50%) scale(0.9);
+    }
+
+    .result-box.show {
+    opacity: 1;
+    pointer-events: auto;
+    animation: fadeIn 0.5s ease forwards;
+    }
+
+    @keyframes fadeIn {
+    from {
+        transform: translate(-50%, -50%) scale(0.9);
+        opacity: 0;
+    }
+    to {
+        transform: translate(-50%, -50%) scale(1);
+        opacity: 1;
+    }
+    }
+
+    .result-box .won-text {
+    font-size: 20px;
+    font-weight: 300;
+    display: flex;
+    justify-content: center;
+    }
+
+    .result-box .won-text p {
+    font-weight: 500;
+    margin: 0 3px;
+    }
+
+    .result-box .btn {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+    }
+
+    .result-box .btn button {
+    font-size: 18px;
+    font-weight: 300;
+    padding: 8px 20px;
+    border: none;
+    outline: none;
+    background-color: rgb(59, 175, 175);
+    border-radius: 7px;
+    color: azure;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    }
+
+    /* Ensure hidden layout doesn't break flow */
+    .player-select-title.hide,
+    .player-select-options.hide {
+    display: none !important;
+    }
